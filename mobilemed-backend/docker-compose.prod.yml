@@ -1,0 +1,13 @@
+services:
+  mobilemed_api_prod:
+    build: 
+      context: .
+      dockerfile: Dockerfile.prod
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+    volumes:
+      - ./src:/usr/src/app/src
+    

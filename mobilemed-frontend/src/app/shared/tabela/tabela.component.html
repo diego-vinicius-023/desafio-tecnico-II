@@ -1,0 +1,35 @@
+<p-table 
+    [columns]="columns" 
+    [value]="value" 
+    [tableStyle]="{ 'min-width': '50rem' }"
+    [paginator]="true"
+    [rows]="pageSize"
+    [lazy]="true"
+    (onLazyLoad)="loadTableData($event)"
+    [rowsPerPageOptions]="[5, 10, 20]"
+    [totalRecords]="totalRecords"
+  >
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <th *ngFor="let col of columns">
+        {{ col.header }}
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rowData let-columns="columns">
+    <tr>
+      <td *ngFor="let col of columns" class="truncate-cell">
+        <span 
+          *ngIf="col.clickable; else normalCell"
+          (click)="onCellClick(rowData, col)"
+          style="cursor: pointer; color: #007bff; text-decoration: underline;"
+        >
+          {{ rowData[col.field] }}
+        </span>
+        <ng-template #normalCell>
+          {{ rowData[col.field] }}
+        </ng-template>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

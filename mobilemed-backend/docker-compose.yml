@@ -1,0 +1,31 @@
+services:
+  mobilemed_db:
+    image: postgres:17
+    container_name: mobilemed-db
+    environment:
+      - POSTGRES_PASSWORD=senhatemp
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=postgres
+    volumes:
+      - ./scripts/schema.sql:/docker-entrypoint-initdb.d/schema.sql:ro
+    ports:
+      - "5431:5432"
+    restart: unless-stopped
+  mobilemed_api:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "4000:3000"
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+    volumes:
+      - ./src:/usr/src/app/src
+    depends_on:
+      - mobilemed_db
+  
+
+volumes:
+  mobilemed-db-backup:
+    external: true

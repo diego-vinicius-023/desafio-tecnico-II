@@ -1,0 +1,64 @@
+<form [formGroup]="exameForm" (ngSubmit)="criarExame()">
+    <div>
+        <label>
+            Nome do Exame:
+            <br />
+            <input
+                type="text"
+                pInputText
+                formControlName="nomeExame"
+                inputId="NomeData"
+                [class.invalid]="exameForm.get('nomeExame')?.invalid && exameForm.get('nomeExame')?.touched"
+            />
+        </label>
+        <div *ngIf="exameForm.get('nomeExame')?.invalid && exameForm.get('nomeExame')?.touched" class="error-message">
+            Nome do exame é obrigatório.
+        </div>
+    </div>
+    <div style="margin-top: 1.5rem;">
+        <label>
+            Data do Exame:
+            <br />
+            <p-datepicker
+                formControlName="dataExame"
+                [showIcon]="true"
+                inputId="buttondisplay"
+                [showOnFocus]="false"
+                [class.invalid]="exameForm.get('dataExame')?.invalid && exameForm.get('dataExame')?.touched"
+            ></p-datepicker>
+        </label>
+        <div *ngIf="exameForm.get('dataExame')?.invalid && exameForm.get('dataExame')?.touched" class="error-message">
+            Data do exame é obrigatória.
+        </div>
+    </div>
+    <div style="margin-top: 1.5rem;">
+        <label>
+            Modalidade DICOM:
+            <br />
+            <p-select
+                formControlName="modalidadeDicom"
+                [options]="dicom"
+                optionLabel="name"
+                placeholder="Selecione a Modalidade"
+                [class.invalid]="exameForm.get('modalidadeDicom')?.invalid && exameForm.get('modalidadeDicom')?.touched"
+            ></p-select>
+        </label>
+        <div *ngIf="exameForm.get('modalidadeDicom')?.invalid && exameForm.get('modalidadeDicom')?.touched" class="error-message">
+            Modalidade DICOM é obrigatória.
+        </div>
+    </div>
+    <div class="flex-end-margin">
+        <button pButton type="submit" [disabled]="exameForm.invalid">Criar</button>
+    </div>
+</form>
+
+<div *ngIf="loading" class="loading-overlay">
+    <p-progressSpinner></p-progressSpinner>
+</div>
+
+<div *ngIf="networkError" class="error-overlay">
+    <p>{{ networkError }}</p>
+    <button pButton type="button" label="Tentar novamente" (click)="retry()"></button>
+</div>
+
+<p-toast></p-toast>
