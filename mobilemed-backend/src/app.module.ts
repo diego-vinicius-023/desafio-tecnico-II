@@ -1,11 +1,12 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PacientesController } from './pacientes/pacientes.controller';
 import { PacientesService } from './pacientes/pacientes.service';
 import { PacientesModule } from './pacientes/pacientes.module';
 import { DataSource } from 'typeorm';
+import { ExamesModule } from './exames/exames.module';
+import { ExamesController } from './exames/exames.controller';
+import { ExamesService } from './exames/exames.service';
 
 @Module({
   imports: [
@@ -19,10 +20,11 @@ import { DataSource } from 'typeorm';
       password: 'senhatemp',
       synchronize: true
     }),
-    PacientesModule
+    PacientesModule,
+    ExamesModule
   ],
-  controllers: [AppController, PacientesController],
-  providers: [AppService, PacientesService],
+  controllers: [PacientesController, ExamesController],
+  providers: [PacientesService, ExamesService],
 })
 export class AppModule {
   constructor(private dataSource: DataSource) {}

@@ -6,7 +6,7 @@ export class Paciente {
   ID: number;
 
   @Column()
-  NomeCompleto: string;
+  nomeCompleto: string;
 
   @Column()
   CPF: string;

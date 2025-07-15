@@ -1,26 +1,18 @@
-import { Component, signal } from '@angular/core';
-// import { RouterOutlet } from '@angular/router';
-import { HttpClient, provideHttpClient } from '@angular/common/http';
-import { TableModule } from 'primeng/table';
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { PrimeNG } from 'primeng/config';
 
 @Component({
   selector: 'app-root',
-  imports: [TableModule],
-  templateUrl: './app.html',
-  styleUrl: './app.css'
+  standalone: true,
+  imports: [RouterOutlet],
+  template: '<router-outlet></router-outlet>',
+  styleUrl: '../styles.css'
 })
 export class App {
-  protected readonly title = signal('mobilemed-frontend');
-  pacientes: any[] = [];
+  constructor(private primeng: PrimeNG) {}
 
-  constructor(private http: HttpClient) {
-    this.loadTableData();
-  }
- 
-  loadTableData() {
-    this.http.get<any>('http://localhost:4000/Pacientes/?page=2&pageSize=2')
-      .subscribe(response => {
-        this.pacientes = response; // Adjust if your API returns { data: [...] }
-      });
+  ngOnInit(){
+    this.primeng.ripple.set(true);
   }
 }

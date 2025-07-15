@@ -2,20 +2,12 @@ import { Module } from '@nestjs/common';
 import { PacientesController } from './pacientes.controller';
 import { PacientesService } from './pacientes.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { Paciente } from 'src/entities/paciente.entity';
+
 
 @Module({
-  imports: [
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'mobilemed_db',
-      port: 5432,
-      database: 'postgres',
-      entities: [],
-      username: 'postgres',
-      password: 'senhatemp',
-      synchronize: true
-    })
-  ],
+  imports: [TypeOrmModule.forFeature([Paciente])],
+  exports: [TypeOrmModule],
   controllers: [PacientesController],
   providers: [PacientesService],
 })

@@ -1,16 +1,1 @@
-<p-table [value]="pacientes" [tableStyle]="{ 'min-width': '50rem' }">
-    <ng-template pTemplate="header">
-        <tr>
-            <th>ID</th>
-            <th>NomeCompleto</th>
-            <th>CPF</th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-paciente>
-        <tr>
-            <td>{{ paciente.ID }}</td>
-            <td>{{ paciente.NomeCompleto }}</td>
-            <td>{{ paciente.CPF }}</td>
-        </tr>
-    </ng-template>
-</p-table>
+<router-outlet></router-outlet>

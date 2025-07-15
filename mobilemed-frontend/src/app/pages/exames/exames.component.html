@@ -1,0 +1,40 @@
+<html>
+<head>
+    <title>
+        Desafio MobileMed
+    </title>
+</head>
+<body>
+        <app-header [pages]="pages"></app-header>
+
+        <div *ngIf="loading" class="loading-overlay">
+            <p-progressSpinner></p-progressSpinner>
+        </div>
+        
+        <div style="margin-left: 20%; margin-right: 20%;">
+        <app-tabela 
+            [columns]="cols" 
+            [value]="exames" 
+            [pageSize]="pageSize"
+            [totalRecords]="numExames"
+            (lazyLoad)="onLazyLoad($event)"
+            
+        ></app-tabela>
+        <div class="flex-end-margin">
+            <button pButton type="button" label="Novo" (click)="showCadastro = true"></button>
+        </div>
+    </div>
+
+    <div *ngIf="showCadastro" class="popup-overlay" (click)="finishForm()">
+        <div  class="popup-content" (click)="$event.stopPropagation()" style="position: relative;">
+            <button  (click)="finishForm()"  style="position: absolute; top: 8px; right: 8px; background: transparent; border: none; font-size: 1.5rem; cursor: pointer;" aria-label="Fechar">&times;</button>
+            <app-cadastro-exames
+                (reloadData)="reloadData()"
+                [pacienteId]="pacienteId"
+            ></app-cadastro-exames>
+        </div>
+    </div>
+    
+    <p-toast></p-toast>
+</body>
+</html>

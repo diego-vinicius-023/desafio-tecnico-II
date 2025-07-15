@@ -1,0 +1,49 @@
+<form [formGroup]="pacienteForm" (ngSubmit)="criarPaciente()">
+    <div>
+        <label>
+            Nome completo:
+            <br />
+            <input
+                type="text"
+                pInputText
+                formControlName="nomeCompleto"
+                inputId="nomeCompleto"
+                [class.invalid]="pacienteForm.get('nomeCompleto')?.invalid && pacienteForm.get('nomeCompleto')?.touched"
+            />
+        </label>
+        <div *ngIf="pacienteForm.get('nomeCompleto')?.invalid && pacienteForm.get('nomeCompleto')?.touched" class="error-message">
+            Nome completo é obrigatório.
+        </div>
+    </div>
+    <div style="margin-top: 1.5rem;">
+        <label>
+            CPF:
+            <br />
+            <p-inputMask
+                formControlName="cpf"
+                mask="999.999.999-99"
+                placeholder="000.000.000-00"
+                [unmask]="true"
+                inputId="cpf"
+                [class.invalid]="pacienteForm.get('cpf')?.invalid && pacienteForm.get('cpf')?.touched"
+            />
+        </label>
+        <div *ngIf="pacienteForm.get('cpf')?.invalid && pacienteForm.get('cpf')?.touched" class="error-message">
+            CPF é obrigatório.
+        </div>
+    </div>
+    <div class="flex-end-margin">
+        <button pButton type="submit" [disabled]="pacienteForm.invalid">Criar</button>
+    </div>
+</form>
+
+<div *ngIf="loading" class="loading-overlay">
+    <p-progressSpinner></p-progressSpinner>
+</div>
+
+<div *ngIf="networkError" class="error-overlay">
+    <p>{{ networkError }}</p>
+    <button pButton type="button" label="Tentar novamente" (click)="retry()"></button>
+</div>
+
+<p-toast></p-toast>
